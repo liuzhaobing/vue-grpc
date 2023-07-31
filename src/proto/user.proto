@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package user.v1;
+
+option go_package = "cbec/api/user/v1;v1";
+
+
+service AuthService {
+    rpc Login (LoginRequest) returns (LoginResponse) {};
+}
+
+message LoginRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    int32 code = 1;
+    Data data = 2;
+}
+
+message Data {
+    string token = 1;
+}

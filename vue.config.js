@@ -25,11 +25,18 @@ module.exports = {
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
   publicPath: '/',
-  outputDir: 'dist',
-  assetsDir: 'static',
+  // outputDir: 'dist',
+  // assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
+    host: 'localhost',
+    proxy: {
+      '/abp/grpc': {
+        target: 'http://172.16.23.33:27996',
+        changeOrigin: true,
+      }
+    },
     port: port,
     open: true,
     overlay: {

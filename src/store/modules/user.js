@@ -26,11 +26,31 @@ const mutations = {
     state.avatar = avatar
   }
 }
+import { AuthServiceClient } from '@/proto/user_grpc_web_pb'
+import { LoginRequest } from '@/proto/user_pb'
 
 const actions = {
   // user login
   login({ commit }, userInfo) {
     const { username, password } = userInfo
+    const client = new AuthServiceClient('/abp/grpc/10.254.102.211:50055')
+    const request = new LoginRequest()
+
+    console.log('userInfo')
+    console.log(userInfo)
+    request.setUsername(userInfo.username)
+    request.setPassword(userInfo.password)
+
+    client.login(request, {}, (err, response) => {
+      if (err) {
+        console.log('err')
+        console.log(err)
+      } else {
+        console.log('response')
+        console.log(response)
+        console.log(response)
+      }
+    })
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
